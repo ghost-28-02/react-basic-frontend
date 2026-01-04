@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POMODORO TIMER</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icon Library -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <!-- navbar -->
+    <div class="navbar">
+        <div class="logo">POMODORO</div>
+        <button id="theme-toggle" class="btn" aria-label="Toggle dark/light theme">
+            <i data-lucide="sun" class="icon-sun"></i>
+            <i data-lucide="moon" class="icon-moon"></i>
+        </button>
+    </div>
+
+    <div class="container">
+        <!-- 3 tabs -->
+        <div class="tabs">
+            <div class="tab active"><i data-lucide="timer"></i> <span>Timer</span></div>
+            <div class="tab"><i data-lucide="bar-chart-2"></i> <span>Stats</span></div>
+            <div class="tab"><i data-lucide="settings"></i> <span>Settings</span></div>
+        </div>
+
+        <!-- circular Progress -->
+        <div class="timer section">
+            <div class="progress-container">
+                <div class="circular-progress">
+                    <p class="txt-focus txt">FOCUS TIME</p>
+                    <p class="txt-break txt">SHORT BREAK</p>
+                    <p class="txt-longbreak txt">LONG BREAK</p>
+                    <div class="time">50:00</div>  
+                </div>
+            </div>
+
+            <div class="timer-controls">
+                <button id="reset" class="reset btn" aria-label="Reset timer">
+                    <i data-lucide="rotate-ccw"></i>
+                </button>
+                <button id="start" class="start btn" aria-label="Start/Pause timer">
+                    <i data-lucide="play" class="play"></i>
+                    <i data-lucide="pause" class="pause"></i>
+                    <span class="play">Start</span>
+                    <span class="pause">Pause</span>
+                </button>
+                <button id="next" class="next btn" aria-label="Skip to next timer">
+                    <i data-lucide="skip-forward"></i>
+                </button>
+            </div>
+
+            <div class="timer-adj">
+                <button class="timer-small btn">25m</button>
+                <button class="timer-large btn">50m</button>
+                <button class="custom btn">Custom</button>
+            </div>
+
+            <!-- Custom Time Modal -->
+            <div class="custom-modal hidden">
+                <div class="custom-box">
+                    <h3>Set Custom Duration</h3>
+                    <input type="number" id="custom-input" min="1" max="180" placeholder="Enter minutes" />
+                    <div class="modal-btns">
+                    <button id="custom-save" class="btn">Save</button>
+                    <button id="custom-cancel" class="btn">Cancel</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer">
+                <div>Cycle 1 of 5</div>
+                <div>Press Space to start/pause</div>
+            </div>
+        </div>
+
+        <!-- stats -->
+        <div class="stats section hidden">
+            <div class="stat">
+                <div class="card">
+                    <div class="card-content">
+                        <span>Today's Focus</span>
+                        <i data-lucide="clock" class="clock"></i>
+                    </div>
+                    <div class="stat-text stat-text-time">
+                        0h 0m
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <span>Sessions</span>
+                        <i data-lucide="target" class="target"></i>
+                    </div>
+                    <div class="stat-text stat-text-session">
+                        0
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <span>Streak</span>
+                        <i data-lucide="trending-up" class="streak"></i>
+                    </div>
+                    <div class="stat-text stat-text-streak">
+                        3 days
+                    </div>
+                </div>
+            </div>
+            <div class="footer">
+                <div>Keep up the great work! 🌟</div>
+            </div>
+            
+        </div>
+
+        <!-- Settings -->
+        <div class="settings section hidden">
+            <div class="setting">
+                <div class="header">
+                    <div class="setting-heading">Timer Settings</div>
+                    <div class="setting-desc">Customize your Pomodoro experience</div>
+                </div>
+
+                <form id="settings-form" class="setting-grid" novalidate>
+                <!-- Focus duration -->
+                <div class="field">
+                    <label for="focus-duration">Focus Duration (minutes)</label>
+                    <input id="focus-duration" name="focusDuration" type="number" min="1" max="180" step="1" inputmode="numeric" value="50" />
+                </div>
+
+                <!-- Short break -->
+                <div class="field">
+                    <label for="short-break">Short Break (minutes)</label>
+                    <input id="short-break" name="shortBreak" type="number" min="1" max="60" step="1" inputmode="numeric" value="5" />
+                </div>
+
+                <!-- Long break -->
+                <div class="field">
+                    <label for="long-break">Long Break (minutes)</label>
+                    <input id="long-break" name="longBreak" type="number" min="5" max="120" step="1" inputmode="numeric" value="20" />
+                </div>
+
+                <!-- Cycles before long break -->
+                <div class="field">
+                    <label for="cycles">Cycles Before Long Break</label>
+                    <input id="cycles" name="cycles" type="number" min="1" max="12" step="1" inputmode="numeric" value="3" />
+                </div>
+
+                <!-- Buttons -->
+                <div class="small" id="saved-msg" aria-live="polite" style="visibility:hidden;">Settings saved</div>
+                <div>
+                    <button type="button" id="reset-btn" class="settings-btn settings-btn--secondary">Reset to Default</button>
+                    <button type="submit" class="settings-btn">Save settings</button>
+                </div>
+                </form>
+            </div>
+        
+    </div>
+
+
+    <!-- Initialize Lucide icons -->
+    <script>lucide.createIcons();</script>
+    <script src="index.js"></script>
+</body>
+</html>

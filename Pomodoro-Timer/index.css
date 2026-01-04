@@ -1,0 +1,517 @@
+:root {
+  --hover-color : rgb(230,210,110);
+  --text-color2 : rgb(124,113,104);
+  --text-color-default : rgb(60,50,40);
+  --card-color : white;
+}
+
+.light {
+  --background-color : rgb(250,250,250);
+  --border-color : rgb(230,230,230);
+  --text-color : rgb(60,50,40);
+}
+
+.dark {
+  --background-color : rgb(19,23,32);
+  --border-color : rgb(38,43,54);
+  --text-color : rgb(244,242,240);
+}
+
+.icon-sun {
+  display: none;
+}
+
+body.dark .icon-moon {
+  display: none;
+}
+
+body.dark .icon-sun {
+  display: inline;
+}
+
+
+.focus {
+  --btn-color-start: rgb(210,123,90);
+  --btn-color-start-hover: rgb(211, 139, 111);
+}
+
+.break {
+  --btn-color-start: rgb(116,190,191);
+  --btn-color-start-hover: rgb(131,192,193);
+}
+
+.longbreak {
+  --btn-color-start: rgb(116,190,191);
+  --btn-color-start-hover: rgb(131,192,193);
+}
+
+.txt-break { display: none; }
+.timer.break .txt-focus { display: none; }
+.timer.break .txt-break { display: inline; }
+.txt-longbreak { display: none;}
+
+body {
+  margin: 0;       
+  padding: 0;      
+  overflow: hidden; 
+  font-family: 'Inter', sans-serif; 
+  background-color: var(--background-color);        
+  color: var(--text-color);
+  transition: background 0.3s ease, color 0.3s ease;                   
+}
+.navbar {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;             
+  padding: 10px 30px;             
+  border-bottom: 2px solid var(--border-color);        
+}
+
+.logo {
+  font-size: 30px;
+  font-weight: 900;
+}
+
+
+#theme-toggle {
+  width: 50px;        
+  height: 50px;             
+  display: flex;
+  justify-content: center;
+  align-items: center;    
+  background: none;  
+  border: 2px solid var(--border-color);
+  color: var(--text-color);
+  border-radius: 50%;       
+  cursor: pointer;
+  font-size: 24px;
+  position: relative;
+}
+
+#theme-toggle i {
+  transition: all 0.3s ease;
+}
+
+#theme-toggle:hover {
+  background-color: var(--hover-color);
+  color: var(--text-color-default);
+}
+
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.tabs {
+  background: var(--border-color);
+  margin: 40px 20px;
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  border-radius: 12px;
+  padding: 2px;
+}
+
+.tab {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-color2);
+  margin: 4px;
+  border-radius: 10px;
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.active {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.section {
+  transition: opacity 0.3s ease;
+}
+.hidden {
+  display: none;
+}
+
+
+/* Timer */
+.progress-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.circular-progress {
+  --size: 250px;
+  --thickness: 14px;
+  --track-color: var(--border-color);
+  
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  background: conic-gradient(var(--btn-color-start) 0deg, var(--track-color) 0deg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--btn-color-start);
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  position: relative;
+
+  transition: background 0.5s linear; /* Smooth animation */
+}
+
+/* white inner circle */
+.circular-progress::before {
+  content: "";
+  position: absolute;
+  width: calc(var(--size) - var(--thickness) * 2);
+  height: calc(var(--size) - var(--thickness) * 2);
+  background: var(--background-color);
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.txt {
+  color: var(--text-color2);
+  z-index: 2;
+  margin-bottom: 6px;
+}
+
+.time {
+  font-size: 60px;
+  font-weight: 900;
+  z-index: 2;
+  color: var(--text-color);
+}
+
+.timer-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  margin-top: 40px;
+}
+
+.pause {
+  display: none;
+}
+
+.next, .reset {
+  width: 50px;        
+  height: 50px;             
+  display: flex;
+  justify-content: center;
+  align-items: center;    
+  background: none;  
+  border: 2px solid var(--border-color);
+  color: var(--text-color);
+  border-radius: 50%;       
+  cursor: pointer;
+  font-size: 24px;
+  position: relative;
+}
+
+.next:hover, .reset:hover {
+  background: var(--hover-color);
+  color: var(--text-color-default);
+}
+
+.start .pause { display: none; }
+.start.running .play { display: none; }
+.start.running .pause { display: inline; }
+
+.start {      
+  height: 50px;  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 30px;
+  border: none;
+  border-radius: 20px;
+  background-color: var(--btn-color-start);
+  color: white;
+  font-size: large;
+  font-weight: 900;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.start:hover {
+  background-color: var(--btn-color-start-hover);
+}
+
+.btn {
+  transition: transform 0.2s ease;
+}
+.btn-animation{
+  transform: scale(0.9);
+}
+
+.timer-adj {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  margin-top: 40px;
+}
+
+/* Make disabled timer adjustment buttons blurred and semi-transparent */
+.timer-adj button.disabled {
+  opacity: 0.6;
+  filter: blur(1.5px);
+  cursor: not-allowed;
+  pointer-events: none; /* Ensure they cannot be clicked */
+  transition: opacity 0.3s ease, filter 0.3s ease;
+}
+
+.timer-adj button {
+  padding: 10px 20px;
+  font-size: large;
+  background: none;
+  border: 2px solid var(--border-color);
+  border-radius: 10px;
+  cursor: pointer;
+  color: var(--text-color);
+}
+
+.timer-adj button:hover {
+  background-color: var(--hover-color);
+  color: var(--text-color-default);
+}
+
+/* Custom Modal */
+.custom-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(1px);
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.custom-box {
+  background: var(--background-color);
+  color: var(--text-color);
+  padding: 24px 32px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  width: 280px;
+}
+
+.custom-box h3 {
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+#custom-input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  text-align: center;
+  outline: none;
+}
+
+.modal-btns {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+}
+
+.modal-btns .btn {
+  flex: 1;
+  margin: 0 4px;
+}
+.custom-modal.hidden {
+  display: none;
+}
+
+#custom-save, #custom-cancel {
+  background: none;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-color);
+  cursor: pointer;
+}
+
+#custom-save:hover, #custom-cancel:hover{
+  background-color: var(--hover-color);
+  color: var(--text-color-default);
+}
+
+.footer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  margin-top: 40px;
+  color: var(--text-color2);
+}
+
+
+/* Stats */
+
+.stat {
+  display: grid;
+  margin: 40px 20px;
+  grid-template-columns: repeat(3,1fr);
+  gap: 10px;
+  padding: 2px;
+}
+
+.card {
+  border: 2px solid var(--border-color);
+  border-radius: 10px;
+  padding: 30px 20px;
+  background-color: var(--border-color);
+}
+
+.card-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom:8px ;
+}
+
+.stat-text {
+  font-size: 30px;
+  font-weight: 900;
+}
+
+.clock {
+  width: 20px;
+  height: 20px;
+  color: rgb(218, 78, 13);
+}
+
+.target {
+  width: 20px;
+  height: 20px;
+  color: rgb(13, 133, 218);
+}
+
+.streak {
+  width: 20px;
+  height: 20px;
+  color: rgb(218, 187, 13);
+}
+
+
+/* Settings */
+.setting {
+  border: 2px solid var(--border-color);
+  margin: 40px 20px;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: var(--border-color);
+}
+
+.setting-heading {
+  color: var(--text-color);
+  font-size: 30px;
+  padding-bottom: 4px;
+}
+
+.setting-desc {
+  color: var(--text-color2);
+  padding-bottom: 20px;
+}
+
+.setting-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding-bottom: 10px;
+  font-size: 15px;
+  color: var(--text-color);
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: none;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  font-size: 15px;
+  color: var(--text-color);
+  width: 100%;
+  box-sizing: border-box;
+  outline: none;
+  transition: box-shadow .12s ease, border-color .12s ease;
+  background: var(--background-color);
+}
+
+input[type="number"]:focus {
+  border: 2px solid rgb(210,123,90);
+}
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+#saved-msg {
+  font-size: 0.9rem;
+  color: #666;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* main save button */
+.settings-btn {
+  padding: 6px 14px;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.25s ease, transform 0.15s ease;
+}
+
+.settings-btn:hover {
+  background-color: var(--hover-color);
+  color: var(--text-color-default);
+}
+
+.settings-btn:active {
+  transform: scale(0.97);
+}
+
+/* secondary reset button */
+.settings-btn--secondary {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.settings-btn--secondary:hover {
+  background-color: var(--hover-color);
+  color: var(--text-color-default);
+}
+
+/* “Settings saved” fade animation */
+#saved-msg.show {
+  visibility: visible;
+  opacity: 1;
+}

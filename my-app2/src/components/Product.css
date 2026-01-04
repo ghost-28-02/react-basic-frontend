@@ -1,0 +1,36 @@
+.product {
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%);
+    border: 1px solid white;
+    min-width: 500px;
+    position: relative;       /* Needed for ::before */
+    z-index: 1;               /* Keep content above border */
+    overflow: hidden;         /* Prevent border bleed */
+}
+
+/* Animated glowing border */
+.product::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 2px; 
+    border-radius: 12px;
+    background: linear-gradient(90deg, #ff0057, #00ffd5, #ff0057);
+    background-size: 300%;
+    animation: borderGlow 4s linear infinite;
+    
+    
+    -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    
+    z-index: -1; 
+}
+
+@keyframes borderGlow {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 300% 50%; }
+}
